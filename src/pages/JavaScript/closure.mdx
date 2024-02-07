@@ -1,0 +1,32 @@
+# 閉包 (Closure)
+
+閉包 (closure) 是程式語言的一種特性，在 JavaScript 中也扮演相當重要的角色，被廣泛應用在 JavaScript 程式庫中。許多被開發者大量使用的重要功能，也都看得到閉包的身影，舉例來說最熱門的 JavaScript 函式庫 React 中的 useState 就是透過閉包來實作。
+
+### 什麼是閉包?
+
+在 MDN 文件中，閉包被定義為函式以及該函式被宣告時所在的作用域環境 (lexical environment) 的組合。白話一點說，閉包就是內部函式能夠取得函式外部的變數，並且記住這個變數。因為能夠記住這個外部變數，閉包很常被用來做狀態保存。
+
+以下是一個最簡單的例子，在下方程式碼中的 `inner` 函式，能拿到外部函式 `outer` 的 `a` 變數，並將其保存在記憶體中。當我們呼叫 `inner` 時，之所以不是每次都回傳 `1` ，而是回傳 `1`、`2`、`3` 不斷加上去，正是因為之前的 `a` 的狀態被記住了。
+
+```js
+function outer() {
+  let a = 0;
+  function inner() {
+    a += 1;
+    console.log(a);
+  }
+  return inner;
+}
+
+const inner = outer();
+
+inner(); // 1
+inner(); // 2
+inner(); // 3
+```
+
+我們可以理解成：閉包這種特性，可以讓我們在一個內層函式中 (這邊的 `inner`)，訪問到外部函式的作用域 (這邊的 `outer`)，並且會記住外部函式的變數(這邊的 `a`)。
+
+## 參考資料
+
+[什麼是閉包 (Closure)？](https://www.explainthis.io/zh-hant/swe/what-is-closure)
