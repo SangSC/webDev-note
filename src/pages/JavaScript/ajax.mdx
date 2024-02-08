@@ -9,12 +9,11 @@
 
 ## 同步與異步
 
-- 同步(synchronous)代表一個 process 僅在某個其他 process 完成或移交後才運行。
-- 異步(asynchronous)代表一個 process 獨立於其他 process 運行。
+- 同步(synchronous)代表一個 process 僅在某個其他 process 完成或移交後才會繼續下一步的動作，等待的期間無法處理其他事情。
+- 異步(asynchronous)代表一個 process 獨立於其他 process 運行。不需要等待結果，仍可以持續處理其他事情。
 
 ![async&sync](/async&sync.jpg)
 
-### 同步請求與異步請求
+## 參考資料
 
-- 同步請求 (Synchronous request)： 客戶端 (client) 對伺服器端 (server) 送出 request ，並且在收到伺服器端的 response 之後才會繼續下一步的動作，等待的期間無法處理其他事情。這個作法並不理想，因為通常伺服器端的運算速度比本地電腦慢上好幾倍。
-- 非同步請求 (Asynchronous request)：客戶端 (client) 對伺服器端 (server) 送出 request 之後，不需要等待結果，仍可以持續處理其他事情，甚至繼續送出其他 request。Response 傳回之後，就被融合進當下頁面或應用中。
+[在 JavaScript 中用 var, let, 以及 const 有什麼差別？什麼時候該用哪個？](https://www.explainthis.io/zh-hant/swe/js-var-let-const-in-javascript)\

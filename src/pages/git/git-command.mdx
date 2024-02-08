@@ -1,0 +1,33 @@
+# Git Command
+
+## Push code to GitHub
+
+- `git init`
+- `git add .` (. means all files)
+- `git commit -m "comment"`
+- `git remote add origin https://github.com/username/repo-name.git`
+- `git push -u origin master`
+
+## Update code
+
+- `git pull`
+- `git add .`
+- `git commit -m "comment"`
+- `git push`
+
+## Restore previous commit
+
+- `git log --oneline -n` // (n 是最近幾次的提交記錄）
+- `git reset --hard HEAD~`
+  ```
+  Sang-MacBook-Pro:test Sang$ git log --oneline -5 // 最近5次提交記錄
+  ba2f0a4 (HEAD -> master, origin/master) test4 //最新提交的記錄
+  f3a6683 test1 // 上一個提交的記錄
+  4f0f054 test2
+  6fefa2d test1
+  77f9ec8 reset
+  ```
+  如果想回復到 f3a6683 test1 ，輸入  `git reset --hard HEAD~`\
+  如果想回復到 4f0f054 test2 ，輸入  `git reset --hard HEAD~2`\
+  如果想回復到 6fefa2d test1 ，輸入  `git reset --hard HEAD~3`  如此類推。
+- `git push -f origin main` 強制以現在版本為主
