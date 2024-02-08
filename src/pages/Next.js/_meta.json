@@ -1,5 +1,8 @@
 {
   "ssr&csr&ssg": {
-    "title": "SSR & CSR & SSG"
+    "title": "[Next] SSR & CSR & SSG"
+  },
+  "hydration": {
+    "title": "[Next] Hydration"
   }
 }
