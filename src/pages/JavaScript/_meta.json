@@ -1,8 +1,26 @@
 {
+  "var&let&const": {
+    "title": "var, let, 以及 const 的區別"
+  },
+  "scope&scope-chain": {
+    "title": "作用域 (Scope) 與作用域鏈 (Scope Chain)"
+  },
   "closure": {
     "title": "閉包 (Closure)"
   },
   "hoisting": {
     "title": "提升 (Hoisting)"
+  },
+  "dom": {
+    "title": "文件物件模型 (Document Object Model, DOM)"
+  },
+  "ajax": {
+    "title": "AJAX"
+  },
+  "event-loop": {
+    "title": "事件循環 (Event Loop)"
+  },
+  "cheatsheet": {
+    "title": "Cheat Sheet"
   }
 }

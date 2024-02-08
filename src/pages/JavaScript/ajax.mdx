@@ -1,0 +1,20 @@
+# AJAX
+
+- AJAX 即 「Asynchronous JavaScript and XML」（非同步的 Javascript 與 XML 技術），指的是一套綜合了多項技術的瀏覽器端網頁開發技術。
+- AJAX 在客戶端使用各種 web 技術來創建異步(asynchronous) Web 應用程序。使應用程序可以在背景從服務器發送和獲得數據，而不干擾現有頁面的顯示和行為。
+- **通過將數據交換層與表示層分離**，AJAX 允許網頁以及擴展的 web 應用程序動態地更改內容，而無需重新加載整個頁面。在實踐中，數據的傳送通常使用 **JSON** 而不是 XML。
+- 常見的 AJAX 應用的例子是，我們在 YouTube 或是 Google 搜尋時，網站會根據我們前面打的幾個字，猜想我們想要搜尋的關鍵字是什麼。這就是不干擾現有貞面的顯示和行為的情況下，從服務器發送和獲得數據，並且更新網頁的方法。
+
+![AJAX](/ajax.jpg)
+
+## 同步與異步
+
+- 同步(synchronous)代表一個 process 僅在某個其他 process 完成或移交後才運行。
+- 異步(asynchronous)代表一個 process 獨立於其他 process 運行。
+
+![async&sync](/async&sync.jpg)
+
+### 同步請求與異步請求
+
+- 同步請求 (Synchronous request)： 客戶端 (client) 對伺服器端 (server) 送出 request ，並且在收到伺服器端的 response 之後才會繼續下一步的動作，等待的期間無法處理其他事情。這個作法並不理想，因為通常伺服器端的運算速度比本地電腦慢上好幾倍。
+- 非同步請求 (Asynchronous request)：客戶端 (client) 對伺服器端 (server) 送出 request 之後，不需要等待結果，仍可以持續處理其他事情，甚至繼續送出其他 request。Response 傳回之後，就被融合進當下頁面或應用中。
