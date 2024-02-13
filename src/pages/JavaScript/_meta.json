@@ -18,7 +18,7 @@
     "title": "[JS] AJAX"
   },
     "async&await": {
-    "title": "[JS] Async & Await"
+    "title": "[JS] Promise & Async & Await"
   },
   "event-loop": {
     "title": "[JS] 事件循環 (Event Loop)"
