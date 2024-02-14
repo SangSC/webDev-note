@@ -4,5 +4,8 @@
   },
   "hydration": {
     "title": "[Next] Hydration"
+  },  
+  "app-router": {
+    "title": "[Next] App Router"
   }
 }
