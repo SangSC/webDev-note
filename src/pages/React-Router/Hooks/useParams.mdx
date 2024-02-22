@@ -1,0 +1,36 @@
+## useParams
+
+```js filename="Type declaration"
+declare function useParams<
+  K extends string = string
+>(): Readonly<Params<K>>;
+
+```
+
+The useParams hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the `<Route path>`. Child routes inherit all params from their parent routes.
+
+```jsx
+import * as React from 'react';
+import { Routes, Route, useParams } from 'react-router-dom';
+
+function ProfilePage() {
+  // Get the userId param from the URL.
+  let { userId } = useParams();
+  // ...
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="users">
+        <Route path=":userId" element={<ProfilePage />} />
+        <Route path="me" element={...} />
+      </Route>
+    </Routes>
+  );
+}
+```
+
+## References
+
+- [useParams](https://reactrouter.com/en/6.22.1/hooks/use-params#useparams)
