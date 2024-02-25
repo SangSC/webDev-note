@@ -1,1 +1,73 @@
-in process.
+# DOM(Document Object Model)
+
+文件物件模型 (Document Object Model)，它是一個網頁的程式介面，提供了一個樹狀結構的表示方法。在 DOM 的樹狀結構中，DOM 所管理的每一個資料都是一個節點 (Node)，而每一個節點皆為物件 (Object) 且擁有各自的屬性以及方法，而我們也可以透過 DOM 屬性與方法去改變網頁架構、風格和內容。
+
+**所謂的 Document object Model ，顧名恩義，可知 HTML 也被視為是個物件。這種架構被稱之為是模型(Model)。我們知道：**
+
+1. document 是一個 object，是 window object 的一個屬性。
+2. document 是指 HTML document •
+3. 這個模型意味著所有 document 內部的
+   HTML 元素都是 object。每個 HTML 標籤都有其屬性和方法。
+
+![dom](/dom.gif)
+
+**在 Document Obiect Model 這顆樹上的每個點被稱之為節點(node)。節點分為三種：**
+
+1. HTML 元素節點(稱為 element nodes or element objects)
+2. 文字節點(text node)
+3. 註解節點(comment node)
+
+DOM 提供 2 種節點集合：HTMLCollection 以及 NodeList。
+
+- Document 本身就是一個 document node
+- 所有的 HTML elements 也都是 element nodes
+- 所有的 HTML attributes 也都是 attribute nodes
+- 在 HTML element 內的 text 內容也是 text node
+- 所有的 comments 也都是 comment nodes
+
+### Window Object
+
+在 JavaScript 當中的 window obiect 代表目前程式碼正在運行的電腦窗（通常就是指我們的瀏覽器視窗）。
+
+**Window Object 可使用的常見 methods 包含：**
+
+- **window.alert()：** 在視窗顯示對話框。//簡化為 `alert()`
+- **window.addEventListener()：** 將事件監聽程式碼附加到 Window Object 。
+- **window.prompt()：** return 用戶在提示對話框中輸入的文字。
+- **window.setlnterval()：** 每次經過給定的毫秒數時安排一個函數執行。
+- **window.clearInterval()：** 將 `setInterval()` 所重複執行的程式暫停。
+
+（物件導向程式概念：一個 Object 可以是另一個 Object 的 attribute。例如，人的配偶也是一個人。）
+
+**Window Object 可使用的常見 properties 包含：**
+
+- **window.console：** return 一個 console object。console object 可以對瀏覽器的 debugging console 進行控制與訪問。常用的 methods 為 log(), error()。
+- **window.document：** return window 包含的文檔，也就是 HTML 文件。
+- **window.localStorage：** return 一個 local storage 物件。
+- **window.sessionStorage：** return 一個 session storage 物件。
+
+### Document Object
+
+**Document Object 常用的 methods 有：**
+
+- **window.document.addEventListener()：** 分為 first parameter event 及事件發生後要執行的 function。
+
+```jsx
+function react(){
+alert("有人正在點撃畫面");
+}
+//addEventListener本身是一個 higher order function
+// react是一個 callback function
+window .addEventListener ("click", react);
+
+//如果一個function只配合一個事件，不需再命名可簡略成
+window.addEventListener("click", function () {
+alert(“有人正在點擊畫面”)});
+
+```
+
+- **window.document.createElement(tagName)**
+- **window.document.getElementById(id)：** return 第一個 id 相符合的 element object。（不能重複使用）
+- **window.document.getElementsByClassName(className)：** return 一個**動態**的 HTML Collection (array-like object)，內部元素包含所有具有給定 className 的元素。
+- **query Selector(selectors)：** return 第一個符合特定選擇器群組的 element object。採用深度優先搜尋演算法。（selector CSS 語法）
+- **query SelectorAll(selectors)：** return 一個 **靜態** (not live) NodeList ，表示與指定選擇器組匹配的元素列表。（即使改變了 DOM 裡面的東西也不會自動跟著改變，為了避免這種情況，讓他在輸出前重新再讓他找一次。）

@@ -4,9 +4,9 @@
 
 ## 什麼是閉包?
 
-在 MDN 文件中，閉包被定義為函式以及該函式被宣告時所在的作用域環境 (lexical environment) 的組合。白話一點說，閉包就是內部函式能夠取得函式外部的變數，並且記住這個變數。因為能夠記住這個外部變數，閉包很常被用來做狀態保存。
+在 MDN 文件中，閉包被定義為函式及其宣告時所在的作用域環境的組合。簡單來說，閉包就是內部函式能夠存取外部函式的變數並記住它。閉包常被用來實現<u>**狀態保存**</u>。
 
-以下是一個最簡單的例子，在下方程式碼中的 `inner` 函式，能拿到外部函式 `outer` 的 `a` 變數，並將其保存在記憶體中。當我們呼叫 `inner` 時，之所以不是每次都回傳 `1` ，而是回傳 `1`、`2`、`3` 不斷加上去，正是因為之前的 `a` 的狀態被記住了。
+以下是一個簡單的例子。在下方程式碼中，inner 函式可以訪問 outer 函式的 a 變數，並將其保存在記憶體中。每次呼叫 inner 時，a 的狀態都會被記住，因此結果是遞增的。
 
 ```js
 function outer() {
@@ -25,11 +25,120 @@ inner(); // 2
 inner(); // 3
 ```
 
-我們可以理解成：閉包這種特性，可以讓我們在一個內層函式中 (這邊的 `inner`)，訪問到外部函式的作用域 (這邊的 `outer`)，並且會記住外部函式的變數(這邊的 `a`)。
+總結來說，閉包允許內部函式存取外部函式的作用域，並記住外部函式的變數。
 
-## 參考資料
+## 閉包的應用
 
-[Closure 閉包](https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part4/closure.html)\
-[什麼是閉包 (Closure)？](https://www.explainthis.io/zh-hant/swe/what-is-closure)\
-[[JS] 深入淺出 JavaScript 閉包（closure）](https://pjchender.dev/javascript/js-closure/)\
-[【前端基礎】JavaScript 中的閉包是什麼？React 閉包應用情境](https://vocus.cc/article/65bb95f8fd89780001ba5756)
+### 1. 狀態保存
+
+在程式開發中，常需要管理狀態。React 提供的 useState 函式庫可用來管理狀態。以下是一個簡化版的 useState 模擬。函式 getState 和 setState 可以在外部函式中取得和更新狀態。
+
+```js
+function useState(initialState) {
+  let state = initialState;
+
+  function getState() {
+    return state;
+  }
+
+  function setState(updatedState) {
+    state = updatedState;
+  }
+  return [getState, setState];
+}
+
+const [count, setCount] = useState(0);
+
+count(); // 0
+setCount(1);
+count(); // 1
+setCount(500);
+count(); // 500
+```
+
+React 核心團隊成員 Sebastian Markbåge 分享了一段程式碼，說明了 React 中的伺服器動作，可以利用閉包進行版本檢查。以下程式碼中的 verifiedVersion 記住了首次渲染時的版本，內部函式 publish 可以取得 verifiedVersion。
+
+![closure](/closure.jpeg)
+
+### 2. 緩存機制
+
+閉包能夠實現緩存機制，因為內部函式可以記住外部變數。下面的範例中，由於閉包的原理，cache 變數可以被回傳的箭頭函式取得和記住，因此可以重複使用 cache 來存放想要緩存的東西。
+
+```js
+function cached(fn) {
+  const cache = {};
+
+  return (...args) => {
+    const key = JSON.stringify(args);
+
+    if (key in cache) {
+      return cache[key];
+    } else {
+      const val = fn(...args);
+      cache[key] = val;
+      return val;
+    }
+  };
+}
+```
+
+### 3. 模擬私有變數
+
+JavaScript 沒有直接支援私有變數，但可以利用閉包實現類似的功能。下面的範例中，privateCounter 無法被外部修改，因為 increment 和 decrement 可以存取到 privateCounter，使其只能透過這兩個函式來修改。
+
+```js
+// privateCounter 沒被法被外部修改，
+// 因為閉包的關係 increment 與 decrement 可以存取到 privateCounter
+// 因此 privateCounter 只能夠透過 increment 與 decrement 來改，這能有效避免被誤觸到
+var counter = (function () {
+  var privateCounter = 0;
+  function changeBy(val) {
+    privateCounter += val;
+  }
+  return {
+    increment: function () {
+      changeBy(1);
+    },
+    decrement: function () {
+      changeBy(-1);
+    },
+    value: function () {
+      return privateCounter;
+    },
+  };
+})();
+
+console.log(counter.value()); // logs 0
+counter.increment();
+counter.increment();
+console.log(counter.value()); // logs 2
+counter.decrement();
+console.log(counter.value()); // logs 1
+```
+
+### 閉包的缺點: 內存洩漏
+
+雖然閉包有許多優點，但也存在缺點。從記憶體的角度來看，閉包可能導致內存洩漏，因為內部函式會記得外部變數，使其常駐在記憶體中。需要注意避免過度使用。
+
+在這個例子中，longArray 並未被使用，但由於閉包的存在，它仍然被 addNumbers 函式記憶。即使 longArray 沒有使用到，但它仍然佔用著記憶體，這就是典型的內存洩漏。
+
+```js
+function outer() {
+  const longArray = [];
+  return function inner(num) {
+    longArray.push(num);
+  };
+}
+const addNumbers = outer();
+
+for (let i = 0; i < 100000000; i++) {
+  addNumbers(i);
+}
+```
+
+## References
+
+- [Closure 閉包](https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part4/closure.html)
+- [什麼是閉包 (Closure)？](https://www.explainthis.io/zh-hant/swe/what-is-closure)
+- [[JS] 深入淺出 JavaScript 閉包（closure）](https://pjchender.dev/javascript/js-closure/)
+- [【前端基礎】JavaScript 中的閉包是什麼？React 閉包應用情境](https://vocus.cc/article/65bb95f8fd89780001ba5756)

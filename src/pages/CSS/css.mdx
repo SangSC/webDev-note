@@ -1,0 +1,48 @@
+# CSS
+
+### **Priority 優先級順序為**
+
+在 CSS 中，樣式規則的應用順序遵循以下優先順序：
+
+1. **重要性（Importance）**：透過使用 `!important` 聲明的規則具有最高的優先權。 例如：
+
+   ```css
+   .example {
+     color: red !important;
+   }
+   ```
+
+2. **內嵌樣式（Inline Styles）**：直接在 HTML 標籤內部使用 `style` 屬性指定的樣式具有比其他樣式表優先權更高。 例如：
+
+   ```html
+   <div style="color: blue;">This text is blue.</div>
+   ```
+
+3. **ID 選擇器（ID Selectors）**：ID 選擇器的優先權高於類別選擇器和標籤選擇器。 例如：
+
+   ```css
+   #unique {
+     color: green;
+   }
+   ```
+
+4. **類別選擇器、屬性選擇器和偽類（Class Selectors, Attribute Selectors, Pseudo-classes）**：類別選擇器、屬性選擇器和偽類的優先權相同，高於標籤選擇器。 例如：
+
+   ```css
+   .highlight {
+     color: yellow;
+   }
+   ```
+
+5. **元素選擇器（Element Selectors）**：標籤選擇器的優先權最低。 例如：
+   ```css
+   p {
+     font-size: 16px;
+   }
+   ```
+
+如果有多個具有相同優先權的規則會應用到同一個元素上，則後面出現的規則會覆蓋前面的規則，這通常稱為「層疊」（Cascading）特性。
+
+## References
+
+- [CSS !important 無效？認識優先順序的權重級別](https://kumo.tw/article.php?id=89)

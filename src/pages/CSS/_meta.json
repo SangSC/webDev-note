@@ -1,0 +1,17 @@
+{
+  "css": {
+    "title": "[CSS] CSS"
+  },
+  "flexbox": {
+    "title": "[CSS] Flexbox"
+  },
+  "sass": {
+    "title": "[CSS] SASS"
+  },
+  "tailwind": {
+    "title": "[CSS] Tailwind CSS"
+  },
+  "atomic-css": {
+    "title": "[CSS] Atomic CSS"
+  }
+}

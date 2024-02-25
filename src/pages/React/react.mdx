@@ -1,1 +1,23 @@
-in process.
+# React
+
+React （也稱為 React.js 或 ReactJS）是一個免費和開源的前端 JavaScript 框架，用 UI 組件來架構使用者介面。它由 Meta （以前的 Facebook）和個人開發人員社區維護。React 可用作於開發 SPA 網頁。React 的基本原理是，用 JavaScript 來生成 HTML。
+
+- React Native 是一個 Facebook 研發的開放原始碼的應用程式框架。React Native 開發的程式可用於 iOS 和 Android 手機平台。
+- React 常與另一個框架 Next.js 合作使用。
+- 因為 React 還是個相對年輕的框架（初始版本在 2013 的 9 月發布），所以功能上、語法上、套件上都會不斷更新。
+
+## 使用 React 的好處在於
+
+1. **可重複使用元件**：React 將應用程式的 UI 分解為獨立的可重複使用元件，每個元件都有自己的邏輯，可以單獨編輯並在最終 UI 中組合使用，簡化了 UI 創建和管理任務，同時節省了開發時間。
+
+2. **虛擬 DOM**：React 利用虛擬 DOM 技術，使得在更新元件時無需重新渲染整個 DOM，而是只更新變化的部分，從而提高了網站的響應速度和效能。
+
+3. **JSX 語法**：JSX 是 JavaScript 的語法擴展，允許在 JavaScript 程式碼中嵌入類似 HTML 的程式碼，React 將 JSX 轉換為 DOM 元素，使得編寫 UI 更加直覺和方便。
+
+## JSX
+
+- JSX 的功能讓我們可以在 JavaScript 内部，使用類 HTML 的程式碼來製作 Component。（React 並不要求使用 JSX，但大部分人覺得在 JavaScript 程式碼中撰寫使用者介面的同時，這是一個很好的視覺輔助）
+
+- 由於網頁瀏覽器無法理解 JSX 語法，我們需要先做 JSX Transformation。在 React Proiect 內部的 node modules 資料夾內，可以找到一個資料「babel」。
+
+- Babel 是一個 Javascript 編譯器，它可以將不是每個瀏覽器都可以理解的最新 JavaScript 功能轉換為當前和舊瀏覽或環境中向後兼容的 JavaScript 版本。Babel 在 React 的功能在於將 JSX 語法轉換成 React Components。

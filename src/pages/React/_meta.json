@@ -1,5 +1,11 @@
 {
-  "redux": {
-    "title": "[React] Redux"
+  "react": {
+    "title": "[React] React"
+  },
+  "SPA": {
+    "title": "[React] SPA"
+  },
+  "life-cycle": {
+    "title": "[React] Life Cycle"
   }
 }

@@ -1,5 +1,32 @@
 {
   "index": {
     "title": "Intro"
+  },
+  "JavaScript": {
+    "title": "JavaScript"
+  },
+  "React": {
+    "title": "React"
+  },
+  "Redux": {
+    "title": "Redux"
+  },
+  "React-Router": {
+    "title": "React Router"
+  },
+  "Next.js": {
+    "title": "Next.js"
+  },
+  "Git": {
+    "title": "Git"
+  },
+  "CSS": {
+    "title": "CSS"
+  },
+  "HTML": {
+    "title": "HTML"
+  },
+  "TypeScript": {
+    "title": "TypeScript"
   }
 }

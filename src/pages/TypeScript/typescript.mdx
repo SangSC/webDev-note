@@ -1,1 +1,100 @@
-in process.
+# Typescript
+
+- Typescript is strongly type
+- almost JavaScript
+
+```ts
+let plate = "Earth";
+let moon = 1;
+let isLarge = false;
+
+// 後面可以改變值，但必須是相同type
+
+// null & undefined
+
+let something: null;
+let anotherThing: undefined;
+```
+
+![Typescript](/Typescript.jpeg)
+![Typescript](/Typescript-2.jpeg)
+
+## Benefits of Typescripts
+
+- better error feedback
+- better autocompletion & code hints
+- custom types
+- self documenting
+- **static typing**
+- code completion
+- refactoring
+- shorthand notations
+
+Drawbacks
+
+- compilation
+- discipline in coding
+
+## Compiling Typescript
+
+- because the browser couldn’t understand Typescript, we need to compile this down into JavaScript
+  - open the terminal, input `tsc “file name”.ts “file name”.js`
+  - if we have already make`“file name”.js` , input `tsc “file name”.ts` is fine
+- **_Cannot redeclare block-scoped variable 'name'._**
+  - never mind, cause the browser is never loading Typescript
+- automatically compile `tsc “file name”.ts -w`
+- or we can make a `tsconfig.json` by `tsc —-init` , terminal input `tsc` only is fine
+- `tsc -w` automatically update
+- we can use node to watch any changes in file `node -w dist/index.js`
+
+## React with Typescript (tsx)
+
+常會用到 `import React, { FC } from "react";`，FC 代表的是 Functional Component（函數式組件）。在 React 中，函數式組件是一種使用函數定義的 React 組件，而不是類定義的。它們是無狀態的，並且通常以箭頭函數的形式定義。FC 是 React 庫中提供的一個類型定義，它是一個簡化版的 React 函數式組件類型定義，它提供了組件的 Props 屬性的類型定義。
+
+```tsx showLineNumbers {4} filename="指定Props的類型"
+import React, { FC } from "react";
+
+// 使用FC定義一個函數式組件，並指定Props的類型
+const MyComponent: FC<{ name: string }> = ({ name }) => {
+  return <div>Hello, {name}!</div>;
+};
+
+export default MyComponent;
+```
+
+```tsx showLineNumbers {4} filename="{ children }"
+import React, { FC } from "react";
+
+// 使用FC定義一個接受children的函數式組件
+const WrapperComponent: FC = ({ children }) => {
+  return <div className="wrapper">{children}</div>;
+};
+
+export default WrapperComponent;
+```
+
+```tsx showLineNumbers {4-7, 9} filename="多個Props"
+import React, { FC } from "react";
+
+// 使用FC定義一個接受多個Props的函數式組件
+interface Props {
+  name: string;
+  age: number;
+}
+
+const PersonComponent: FC<Props> = ({ name, age }) => {
+  return (
+    <div>
+      <p>Name: {name}</p>
+      <p>Age: {age}</p>
+    </div>
+  );
+};
+
+export default PersonComponent;
+```
+
+## References
+
+- [TypeScript vs JavaScript: Know The Difference](https://radixweb.com/blog/typescript-vs-javascript)
+- [TypeScript | 聽說 JavaScript 有什麼弱型別？ TypeScript 的基本用法 ( I )](https://medium.com/enjoy-life-enjoy-coding/typescript-聽說-javascript-有什麼弱型別-typescript-的基本用法-i-bb487251d387)

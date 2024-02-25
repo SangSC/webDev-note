@@ -1,0 +1,22 @@
+# SPA (Single Page Application)
+
+- 若我們有一個後端的網路服務(Web Service)已經能夠正常運作且受到保護，只有經過身份驗證和授權的用戶才能調用這個 API，則我們可以使用網頁前端的框架來架設網站，並且連結到此 API。
+- 在大多數網站上，當我們點擊連結或提交表單時，瀏覽器會向伺服器發出 request 並下載一個完整的新頁面。我們通常會看到白色閃爍，因為當前頁面消失並加載了新頁面。（使用 React 會看起來很スムーズ地切換）若使用 AJAX 技術，我們可以編寫一些在瀏覽器上運行的 JavaScript。 JavaScript 將向伺服器發出 request，接收 response 並使用新數據更新當前 HTML 頁面。整個過程中，只有數據通過網絡傳輸，而不是一個全新的 HTML 頁面。
+- 像這樣的頁面，就被稱為 Single Page Application(SPA)。
+
+## SPA 的優點
+
+1. 我們減少了伺服器的負載。為每個 reqeust 生成一個 HTML 頁面需要大量的處理能力。如果我們的服務器的 CPU 太忙，我們的網站就會變慢，並可能變成反應遲鈍使我們的網站關閉。在使用網頁瀏覽器時，大多數客戶端的 CPU （可能有 8 個或更多）都處於空閒狀態。因此，我們可以將數據傳到客戶端，讓客戶端的 CPU 驅動瀏覽器來渲染(render)頁面。（client-side rendering）
+2. 我們還減少了需要通過網絡傳輸的數據量，因為只發送新數據，而不是完整的 HTML 頁面。
+
+- MVC model 將生成網頁的工作交給 server，server 很忙碌，他的 controller 要用 view 生成網頁，還要用 model 做互動。
+- 但如果是用 SPA，server 就不會那麼忙，client 只會向 server 要求頁面的資訊，server 只會把必要的資料給 client，讓 client 端的 browser 重新渲染一遍。
+
+雖然 SPA 有很多優點，但這並不意味著每個網站都應該是 SPA。
+
+## SPA 的缺點
+
+1. SPA 非常複雑。SPA 越大，添加的功能越多時，會變得越複雑。最終，複雜性會影響我們網站的性能，並增加 bug 出現的機率。
+2. 搜索引擎優化(SEO)會出問題。谷歌和其他搜索引擎有自動掃描程式，但是，這些自動掃描程式不會運行 JS 代碼來加載數據。因此，搜索引擎可能無法正確定位我們的網站。
+
+市面上有幾個熱門框架可以製作 SPA，包括 React.js（由 Facebook 開發和使用） 、Angular.js（由 Google 的 Angular 團隊以及社群共同領導）和 Vue.js。

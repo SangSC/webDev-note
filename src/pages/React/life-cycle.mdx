@@ -1,0 +1,16 @@
+# React 生命週期（life cycle）
+
+React 中的每個 Component 都有一個生命週期(Life Cycle)，而我們可以在其三個主要階段對其進行監控和操作。這三個與生命週期有關的函數(Life Cycle Methods) :
+
+1. **componentDidMount()：** 在一個 component 被 mount （加入 DOM tree 中）後，componentDidMount() 會馬上被呼叫。
+2. **componentDidUpdate()：** componentDidUpdate() 會在更新後馬上被呼叫。這個方法並不會在初次 render 時被呼叫。
+3. **component WillUnmount()：** componentWillUnmount() 會在一個 component 即將被 unmount 時被呼叫。
+
+- 在 React 的 Development Mode 之下，`<React StrictMode>` 會讓 componentDidMount 執行兩次。
+- 除了這三個 methods 之外，還有許多其他的 Life Cycle Methods，有興趣再去認識。
+
+### References
+
+- [[react] 生命週期（life cycle）](https://pjchender.dev/react/react-life-cycle/)
+- [React Lifecycle Methods diagram](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+- [React lifecycle ライフサイクル](https://qiita.com/houka/items/7d9fa9f3613bc35731e9)
