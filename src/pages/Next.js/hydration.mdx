@@ -1,3 +1,9 @@
+在 Next.js 中，"hydration" 是指客戶端渲染（client-side rendering）時，React 元件在首次載入時將由服務端渲染（server-side rendering）產生的 HTML 重新啟動為互動式元件的過程。 這表示在頁面載入時，不僅會將靜態 HTML 傳送到瀏覽器端，還會在瀏覽器端重新建立 React 元件，並將其掛載到現有的 HTML 結構上，從而使頁面變得互動式 。
+
+Next.js 使用 hydration 來提供更快的首次載入體驗。 在首次載入時，使用者會看到一個由服務端產生的靜態 HTML 頁面。 一旦瀏覽器載入並解析了這些 HTML，React 將會重複使用這些靜態 HTML 並在其上附加事件處理程序等客戶端行為，從而使頁面具有互動性。
+
+這種方式結合了服務端渲染和客戶端渲染的優勢，既能夠實現較快的首次加載，又能夠提供動態互動性。
+
 ## References
 
 [Next.js: The Ultimate Cheat Sheet To Page Rendering](https://guydumais.digital/blog/next-js-the-ultimate-cheat-sheet-to-page-rendering/)
