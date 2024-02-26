@@ -7,5 +7,8 @@
   },
   "life-cycle": {
     "title": "[React] Life Cycle"
+  },
+  "Hooks": {
+    "title": "[React] Hooks"
   }
 }

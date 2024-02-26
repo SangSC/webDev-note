@@ -1,16 +1,176 @@
-# React 生命週期（life cycle）
+## React 生命週期（Life Cycle）
 
-React 中的每個 Component 都有一個生命週期(Life Cycle)，而我們可以在其三個主要階段對其進行監控和操作。這三個與生命週期有關的函數(Life Cycle Methods) :
+『コンポーネントの状態が変わっていく過程でのそれぞれのステップに名前がついている』
 
-1. **componentDidMount()：** 在一個 component 被 mount （加入 DOM tree 中）後，componentDidMount() 會馬上被呼叫。
-2. **componentDidUpdate()：** componentDidUpdate() 會在更新後馬上被呼叫。這個方法並不會在初次 render 時被呼叫。
-3. **component WillUnmount()：** componentWillUnmount() 會在一個 component 即將被 unmount 時被呼叫。
+React 的生命週期（Life Cycle）是指 Component 從初始狀態到結束狀態（掛載到卸載）的過程。生命週期主要分為三個階段，而我們可以在其三個主要階段對其進行監控和操作。
 
-- 在 React 的 Development Mode 之下，`<React StrictMode>` 會讓 componentDidMount 執行兩次。
-- 除了這三個 methods 之外，還有許多其他的 Life Cycle Methods，有興趣再去認識。
+- **Mounting：** Component 掛載
 
-### References
+- **Update：** Component 更新
 
+- **Unmounting：** Component 卸載
+
+![React Life Cycle](/life-cycle.png)
+![React Life Cycle](/life-cycle-2.png)
+
+例如，將一個每秒都在更新時間的 component 加入到 DOM 中，就會有以下的生命週期：
+
+- **Mount:** 畫面顯示目前的時間
+- **Update:** 更新目前時間
+- **Unmount:** 從畫面中移除目前時間
+
+## Life Cycle Methods
+
+這三個與生命週期有關的函數(Life Cycle Methods) :
+
+### 1. Mounting
+
+當 React 首次渲染元件，並把渲染後的節點加入 DOM 中時，我們稱這時為 mounting。當 React 把節點加入到 DOM 後，瀏覽器會渲染並繪製畫面。
+
+- [**constructor**](https://zh-hant.legacy.reactjs.org/docs/react-component.html#constructor)
+- [**render**](https://zh-hant.legacy.reactjs.org/docs/react-component.html#render)
+- [**componentDidMount**](https://zh-hant.legacy.reactjs.org/docs/react-component.html#componentdidmount)
+
+在一個 component 被 mount（加入 DOM tree 中）後，`componentDidMount()` 會馬上被呼叫。
+
+### 2. Update
+
+在 mounting 後，如果一個元件的 prop 或 state 有變化時，就會觸發重新渲染。重新渲染後，React 會去比較虛擬 DOM 有哪些地方改變了，然後將改變的部分更新到實際的 DOM 上。這個階段我們稱它為 updating。
+
+- [**render**](https://zh-hant.legacy.reactjs.org/docs/react-component.html#render)
+- [**componentDidUpdate**](https://zh-hant.legacy.reactjs.org/docs/react-component.html#componentdidupdate)
+
+`componentDidUpdate()` 會在更新後馬上被呼叫。這個方法並不會在初次 render 時被呼叫。
+
+### 3. Unmounting
+
+當一個元件被從 DOM 中移除時，我們稱之為 unmounting。
+
+- [**componentWillUnmount**](https://zh-hant.legacy.reactjs.org/docs/react-component.html#componentwillunmount)
+
+`componentWillUnmount()` 會在一個 component 即將被 unmount 時被呼叫。
+
+- 在 React 的 Development Mode 之下，`<React StrictMode>` 會讓 `componentDidMount` 執行兩次。
+
+### 各個 Method 的說明
+
+**constructor**
+
+- 當 class 被實例化時會被呼叫。
+- 進行初始化，例如設置初始狀態（state）或綁定方法。
+- 此時 DOM 還未被渲染到瀏覽器上。
+
+---
+
+**render**
+
+- 負責返回用於呈現到瀏覽器上的 DOM 元素。
+- 或更新 DOM 中已經渲染的資料。
+
+---
+
+**componentDidMount**
+
+- 在掛載階段，即 DOM 渲染後立即執行。
+- 常用於進行初始資料載入、訂閱外部事件等非同步操作。
+- 組件更新時不會再次執行。
+
+---
+
+**componentDidUpdate**
+
+- 當狀態或屬性改變導致重新渲染後執行。
+- 通常會寫出與 componentDidMount 不同的處理，例如資料更新或動畫觸發。
+- 掛載時還不會被執行。
+
+---
+
+**componentWillUnmount**
+
+- 在組件被卸載前執行。
+- 主要用於清理操作，例如清除 setInterval、取消訂閱外部事件等。
+
+## useEffect
+
+可以把 useEffect 視為`componentDidMount`，`componentDidUpdate`和 `componentWillUnmount` 的組合。
+
+例如，在 useEffect 的第二個參數放入 `[]`(empty array)，即有 `componentDidMount` 的效果。
+
+在 useEffect 的第二個參數放入`[state]`，即有 `componentDidMount` 以及 `componentDidUpdate` 的效果。
+關於 useEffect 如何跟三個生命週期函數互換，可參考 https://zh-hant.reactjs.org/docs/hooks-effect.html。
+
+### Example
+
+當使用 `useEffect` Hook 時，可以模擬類別 Component 中的 `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount` 這三個生命週期方法的效果。
+
+舉例，假設我們有一個需求：
+
+- 當 Component Mount 時，我們需要向伺服器請求數據。
+- 當 Component Update 時，我們需要根據新的狀態重新獲取數據。
+- 當 Component Unmount 時，我們需要清理一些資源，例如取消訂閱。
+
+我們可以使用 `useEffect` 來實現這個功能。 具體代碼如下：
+
+```js
+import React, { useState, useEffect } from "react";
+
+const ExampleComponent = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    // componentDidMount 和 componentDidUpdate 的效果，每次 Component 更新時都會執行
+    fetchData();
+
+    // componentWillUnmount 的效果，清理 Effect
+    return () => {
+      // 在 Component 卸載時執行清理操作，例如取消訂閱
+      // 注意：在 Component 更新時，這個函數也會被調用，因為 useEffect 在每次 Component 更新時都會執行
+      cleanup();
+    };
+  }, []); // 傳入空數組作為第二個參數，表示只在 Component 掛載和卸載時執行一次
+
+  const fetchData = async () => {
+    // 模擬向伺服器請求數據
+    const result = await fetch("https://api.example.com/data");
+    const fetchedData = await result.json();
+    setData(fetchedData);
+  };
+
+  const cleanup = () => {
+    // 清理 Effect，例如取消訂閱
+    console.log("Cleanup performed");
+  };
+
+  return (
+    <div>
+      {data ? (
+        <div>
+          <h2>Data:</h2>
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+};
+
+export default ExampleComponent;
+```
+
+在上面的程式碼中，我們使用 `useEffect` 鉤子來取得資料並設定狀態。 透過傳入一個空數組 `[]` 作為 `useEffect` 的第二個參數，我們告訴 React 只在 Component 掛載和卸載時執行一次 `fetchData` 函數。 這就相當於類別 Component 中的 `componentDidMount`。
+
+如果我們希望在狀態更新時重新獲取數據，我們可以傳入狀態作為 `useEffect` 的第二個參數，這樣 `fetchData` 函數將在每次狀態更新時執行，這就類似於 `componentDidUpdate`。
+
+透過這種方式，我們可以使用 `useEffect` 鉤子來模擬類別 Component 中的生命週期方法，實現不同階段的邏輯操作。
+
+## References
+
+- [請解釋 React 生命週期？](https://www.explainthis.io/zh-hant/swe/react-lifecycle)
+- [React.Component](https://zh-hant.legacy.reactjs.org/docs/react-component.html)
 - [[react] 生命週期（life cycle）](https://pjchender.dev/react/react-life-cycle/)
 - [React Lifecycle Methods diagram](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 - [React lifecycle ライフサイクル](https://qiita.com/houka/items/7d9fa9f3613bc35731e9)
+- [ [React] ライフサイクルのはなし。](https://ec-penguin.com/blogs/shopify/react-lifecycle)
+- [【React】ライフサイクルメソッドと副作用フック](https://note.alhinc.jp/n/n57d71f557635)
+- [Hooks 時代の React ライフサイクル完全理解への道](https://zenn.dev/yodaka/articles/7c3dca006eba7d)
