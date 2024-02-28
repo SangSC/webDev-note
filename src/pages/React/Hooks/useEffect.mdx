@@ -1,0 +1,81 @@
+# useEffect
+
+`useEffect` 是 React 中的一個 Hook，用於在 functional component 中執行 side effects（副作用）。副作用指的是在 component 渲染過程中，執行與渲染無關的操作，例如資料加載、訂閱事件、手動修改 DOM 等。
+
+`useEffect` 接受一個函數作為參數，以及一個依賴數組（可選）。函數中可以包含任何副作用程式碼，而依賴數組則指定了影響該副作用的變數，當這些變數發生改變時，副作用會重新執行。
+
+以下是一些 `useEffect` 的使用例子：
+
+1. 資料加載：在 component 加載時，使用 `useEffect` 來發送資料請求並更新 state。
+
+```javascript
+import React, { useState, useEffect } from "react";
+
+function MyComponent() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetchData(); // 呼叫資料請求函數
+  }, []); // 空的依賴數組表示只在 component 加載時執行一次
+
+  const fetchData = async () => {
+    const response = await fetch("https://api.example.com/data");
+    const result = await response.json();
+    setData(result);
+  };
+
+  return <div>{/* 使用 data 來渲染UI */}</div>;
+}
+```
+
+2. 訂閱事件：在 component 加載時訂閱事件，在 component 卸載時取消訂閱。
+
+```javascript
+import React, { useState, useEffect } from "react";
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prevCount) => prevCount + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval); // 在 component 卸載時清除定時器
+    };
+  }, []); // 空的依賴數組表示只在 component 加載時執行一次
+
+  return (
+    <div>
+      <p>{count}</p>
+    </div>
+  );
+}
+```
+
+3. 手動修改 DOM：使用 `useEffect` 來操作 DOM 元素。
+
+```javascript
+import React, { useRef, useEffect } from "react";
+
+function MyComponent() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus(); // 在 component 加載時將焦點設置到輸入框
+  }, []); // 空的依賴數組表示只在 component 加載時執行一次
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+    </div>
+  );
+}
+```
+
+這些例子展示了 `useEffect` 的幾種常見使用情境，你可以根據你的需求自由地使用它來處理副作用。
+
+## References
+
+- [useEffect](https://ja.react.dev/reference/react/useEffect)

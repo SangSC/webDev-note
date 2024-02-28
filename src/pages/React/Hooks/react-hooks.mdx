@@ -1,3 +1,252 @@
 # React Hooks
 
 慣例上所有 React Hooks 都會以 use 作為名稱的開頭。
+
+## Hook 解決了什麼問題?
+
+React 團隊開發 Hooks 主要解決了以下三個問題：
+
+1. **狀態相關的邏輯在 class component 難以複用**：在使用 class component 時，React 沒有提供一個便捷的方式來將重複的邏輯添加到元件中。這導致開發者可能會使用 render props 或 higher-order components，但這樣做需要重新架構元件，程式碼也變得難以閱讀。Hooks 解決了這個問題，讓開發者能夠從元件中提取狀態相關的邏輯，並進行獨立複用。
+
+2. **複雜元件的邏輯讓人難理解**：當 class component 變得越來越複雜時，生命週期方法內可能需要加入許多不相關的邏輯。Hooks 允許將一個元件拆分為更小的函式，不再依賴於生命週期方法的拆分，使得不相關的邏輯可以更好地管理。
+
+3. **class 對開發者不易理解**：React 團隊發現，class 可能會成為學習 React 的主要障礙。為了解決這個問題，Hooks 讓開發者可以在沒有 class 的情況下更自然地使用 React 的特性，避免了對於 class 概念的繁複理解，使得 React 更貼近函式式編程的思維。
+
+<details>
+  <summary>
+    <b>比較 class component 和 hook (functional component)</b>
+  </summary>
+
+```js filename="class component"
+import React from "react";
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+    };
+  }
+
+  render() {
+    return (
+      <>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Click me
+        </button>
+      </>
+    );
+  }
+}
+
+export default App;
+```
+
+```js filename="hook (functional component)"
+import React, { useState } from "react";
+
+const App = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </>
+  );
+};
+
+export default App;
+```
+
+</details>
+
+## Hook 的規則
+
+**1. 只能在最頂層使用 Hook**
+
+不能在 for 循環、if…else 或巢狀中(如： map )中使用 Hook，我們需要確保永遠都在 React 函式的最頂層以及任何 return 之前使用。
+
+**2. 只能在 React 函式中使用 Hook**
+
+無法在一般的 JavaScript 函式中使用 Hook，只有以下兩種情境可以使用
+
+- 在 React 的 functional component 中使用
+- 在自定義的 Hook (custom hook) 中使用其他 Hook
+
+### 為什麼只能在最頂端層呼叫 Hook？
+
+當在 React 函數組件中呼叫 Hook 時，React 需要確保它們的呼叫順序在每次渲染中都是固定的，以便正確地跟踪組件的狀態。如果允許在函數組件的內部函數、循環或條件語句中調用 Hook，就無法確定它們的呼叫順序，這可能導致錯誤或不一致的行為。
+
+舉例來說，假設我們有一個計數器組件，想要在按鈕點擊時增加計數值。使用 useState hook 可以實現這個功能：
+
+```javascript
+import React, { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+這個例子中，useState hook 被放在函數組件的最頂層，確保了在每次渲染中的呼叫順序是固定的，React 能夠正確地跟踪 count 狀態的變化。如果將 useState hook 放在條件語句或循環中，React 將無法確定它們的呼叫順序，可能導致計數錯誤的行為。
+
+因此，React 要求 Hook 必須在函數組件的最頂層中呼叫，以確保狀態管理的正確性和可預測性。
+
+### React 是如何知道哪個 state 會對應到哪個 useState 呢?
+
+React 中的 useState Hook 的呼叫順序在每次渲染中是固定的。因此，React 能夠根據 Hook 的呼叫順序來對應正確的狀態值。如果 Hook 的呼叫順序是穩定的，React 就能夠正確地將內部狀態和對應的 Hook 進行關聯。
+
+例如，考慮以下程式碼：
+
+```js
+import { useState } from "react";
+
+export default function MyComponent() {
+  const [number, setNumber] = useState(0);
+  const [showMore, setShowMore] = useState(false);
+
+  function handleNextNumber() {
+    setNumber(number + 1);
+  }
+
+  function handleMoreClick() {
+    setShowMore(!showMore);
+  }
+
+  return (
+    <>
+      <button onClick={handleNextNumber}>Next</button>
+      <h3>{number + 1}</h3>
+      <button onClick={handleMoreClick}>
+        {showMore ? "Hide" : "Show"} details
+      </button>
+      {showMore && <p>Hello World!</p>}
+    </>
+  );
+}
+```
+
+在這個例子中，useState Hook 的呼叫順序是固定的：首先是`const [number, setNumber] = useState(0);`，然後是`const [showMore, setShowMore] = useState(false);`。因此，React 能夠正確地將 number 和 showMore 狀態對應到對應的 useState。
+
+然而，如果某個 Hook 的調用不遵循 React 的規範，例如，放在條件語句中，這可能導致渲染順序的變化，使得 React 無法正確對應狀態和 Hook。這就是為什麼 React 規定 Hook 必須在組件的最頂層呼叫的原因。
+
+### React Hook 背後實作機制
+
+React 利用一個陣列來儲存每個元件的 state pairs，同時維護著當前的陣列 index，初始值為 0。每次調用 useState 時，React 會生成一組新的 state pair 並遞增 index。透過這個 index，React 能夠準確地對應每個 state 對應到哪個 useState。
+
+下面是一個簡化版本的模擬 useState 的程式碼：
+
+```javascript
+// 初始化 state 空陣列
+let state = [];
+// 初始化 setters 空陣列
+let setters = [];
+// 首次渲染
+let firstRun = true;
+// 初始化指標值 0
+let cursor = 0;
+
+function createSetter(cursor) {
+  return function setterWithCursor(newVal) {
+    state[cursor] = newVal;
+  };
+}
+
+// 實作 useState
+export function useState(initVal) {
+  // 只有首次渲染會進入以下程式碼
+  // state push 進 state 的陣列當中
+  // setters push 進 setters 的陣列當中
+  if (firstRun) {
+    state.push(initVal);
+
+    setters.push(createSetter(cursor));
+    // 執行完之後，將首次渲染值改為 false
+    firstRun = false;
+  }
+
+  // 透過對應紀錄好的順序，可以取出該 setter 在陣列中的值
+  const setter = setters[cursor];
+  // 透過對應紀錄好的順序，可以取出該 state 在陣列中的值
+  const value = state[cursor];
+
+  // 指標值 +1
+  cursor++;
+  // 最後回傳 state 值和 setter 函式
+  return [value, setter];
+}
+
+// Our component code that uses hooks
+function RenderFunctionComponent() {
+  const [firstName, setFirstName] = useState("Rudi"); // 指標值: 0
+  const [lastName, setLastName] = useState("Yardley"); // 指標值: 1
+
+  return (
+    <div>
+      <Button onClick={() => setFirstName("Richard")}>Richard</Button>
+      <Button onClick={() => setFirstName("Fred")}>Fred</Button>
+    </div>
+  );
+}
+
+function MyComponent() {
+  cursor = 0; // 每次渲染前都會重置指標值為 0
+  return <RenderFunctionComponent />; // 渲染
+}
+
+console.log(state); // 渲染前: []
+MyComponent();
+console.log(state); // 第一是渲染: ['Rudi', 'Yardley']
+MyComponent();
+console.log(state); // 後續渲染: ['Rudi', 'Yardley']
+
+// 點擊 Fred 按鈕
+
+console.log(state); //點擊完結果: ['Fred', 'Yardley']
+```
+
+這個程式碼展示了 useState 的運作過程：
+
+1. 初始化：初始化空的 state 和 setters 陣列，並設置指標(cursor)值為 0。
+2. 首次渲染：將 setters 和 state 放入對應的陣列中。
+3. 重新渲染：重置指標值為 0，並依次取出先前的 state 值，確保了正確的對應關係。
+4. 事件觸發：每個 setter 都對應到指標位置的 state 值，確保了正確的狀態修改。
+
+React 背後透過指標值來記錄對應的狀態和 setter，如果 Hook 的調用順序不正確，則指標值也會錯誤，導致狀態值的混亂，進而產生 Bug。
+
+## 常使用的 Hook
+
+**useState：** 用於管理元件中的狀態，返回一個包含當前狀態值和更新函數的陣列，通過更新函數可以更新狀態並觸發重新渲染。
+
+**useEffect：** 處理副作用，如 fetch API、紀錄追蹤、setInterval()等。接收一個設置函數和一個依賴陣列，用於管理副作用的執行和清理。在 render 渲染結束後執行。
+
+**useLayoutEffect：** 與 useEffect 類似，但在 DOM 更新後同步執行。
+
+**useReducer：** 也是用來管理 state 的 hook，可替代 useState。接收兩個參數，一個 reducer 和一個初始值，返回當前狀態值和 dispatch 方法。通常在狀態邏輯複雜時建議使用。
+
+**useCallback：** 用於緩存函式，返回一個被記憶的函式，只在依賴改變時更新。
+
+**useMemo：** 用於緩存計算結果，返回一個被記憶的值，只在依賴改變時重新計算。
+
+**useRef：** 用於保存不需要重新渲染的值，返回一個可變的 ref 物件，其 current 屬性被初始化為傳入的參數值。
+
+## References
+
+- [React Hooks 是什麼?](https://www.explainthis.io/zh-hant/swe/what-is-react-hook)
+- [React hooks: not magic, just arrays](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e)
+- [5 分でわかる React Hooks](https://qiita.com/ushi_osushi/items/98d1bc4a83265a764084)
+- [フック API リファレンス](https://ja.legacy.reactjs.org/docs/hooks-reference.html)
