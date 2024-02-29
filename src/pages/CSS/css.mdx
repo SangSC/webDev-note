@@ -4,6 +4,10 @@
 
 在 CSS 中，樣式規則的應用順序遵循以下優先順序：
 
+**!important > 行內樣式 > id > class = 偽元素 > 型態選擇器 = 偽類 > 通用**
+
+![css-priority](/css.png)
+
 1. **重要性（Importance）**：透過使用 `!important` 聲明的規則具有最高的優先權。 例如：
 
    ```css
@@ -12,7 +16,7 @@
    }
    ```
 
-2. **內嵌樣式（Inline Styles）**：直接在 HTML 標籤內部使用 `style` 屬性指定的樣式具有比其他樣式表優先權更高。 例如：
+2. **行內樣式（Inline Styles）**：直接在 HTML 標籤內部使用 `style` 屬性指定的樣式具有比其他樣式表優先權更高。 例如：
 
    ```html
    <div style="color: blue;">This text is blue.</div>
@@ -44,5 +48,7 @@
 如果有多個具有相同優先權的規則會應用到同一個元素上，則後面出現的規則會覆蓋前面的規則，這通常稱為「層疊」（Cascading）特性。
 
 ## References
+
+- [CSS 選擇器的優先級](https://www.explainthis.io/zh-hant/swe/css-specificity)
 
 - [CSS !important 無效？認識優先順序的權重級別](https://kumo.tw/article.php?id=89)

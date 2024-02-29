@@ -4,5 +4,8 @@
   },
   "GraphQL": {
     "title": "[API] GraphQL"
+  },
+  "Axios": {
+    "title": "[API] Axios"
   }
 }

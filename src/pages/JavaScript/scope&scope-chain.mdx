@@ -1,1 +1,48 @@
-in process.
+# 作用域 (Scope) 與作用域鏈 (Scope Chain)
+
+## 作用域 (Scope)
+
+作用域是指程式中值或表達式可被存取的範圍。全域作用域涵蓋整個程式，函式作用域僅限於函式內部，而塊級作用域則限於塊級中的 let 或 const 變數。
+
+以程式碼示例：
+
+```javascript
+let a = "全局作用域";
+
+function call() {
+  console.log(a); // 全局作用域
+  a = "哈囉全局作用域~~";
+}
+call();
+console.log(a); // 哈囉全局作用域~~
+```
+
+```javascript
+function scope() {
+  let a = "函式作用域";
+  console.log(a); // 函式作用域
+}
+```
+
+```javascript
+function checkScope() {
+  if (true) {
+    let a = "塊級作用域";
+    var b = "函式作用域";
+  } else {
+    console.log(b); // 函式作用域
+  }
+}
+```
+
+## 作用域鏈 (Scope Chain)
+
+作用域鏈是指當 JavaScript 使用變數時，先在當前作用域中尋找，若找不到則往父層作用域尋找，直到全域作用域或報錯。
+
+```javascript
+let a = 100;
+function find() {
+  console.log(a); // 100
+}
+find();
+```
