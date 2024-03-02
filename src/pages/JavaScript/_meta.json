@@ -1,15 +1,21 @@
 {
+  "array&object": {
+    "title": "[JS] Array & Object 取用資料的 methods"
+  },
   "var&let&const": {
     "title": "[JS] var, let, 以及 const 的區別"
   },
   "scope&scope-chain": {
     "title": "[JS] 作用域 (Scope) 與作用域鏈 (Scope Chain)"
   },
+  "hoisting": {
+    "title": "[JS] 提升 (Hoisting)"
+  },
   "closure": {
     "title": "[JS] 閉包 (Closure)"
   },
-  "hoisting": {
-    "title": "[JS] 提升 (Hoisting)"
+  "gc": {
+    "title": "[JS] 垃圾回收機制 (Garbage Collection)"
   },
   "dom": {
     "title": "[JS] 文件物件模型 (Document Object Model, DOM)"
@@ -17,7 +23,7 @@
   "ajax": {
     "title": "[JS] AJAX"
   },
-    "async&await": {
+  "async&await": {
     "title": "[JS] Promise & Async & Await"
   },
   "event-loop": {
