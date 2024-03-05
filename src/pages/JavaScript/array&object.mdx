@@ -1,5 +1,7 @@
 # Array & Object 取用資料的 methods
 
+- 使用 methods 需要注意是否會修改原始資料。
+
 ## Array Methods
 
 ### Basic
@@ -75,11 +77,11 @@ console.log(animals.slice());
 </details>
 
 <details>
-  <summary><b>Array splice()：</b>使用 splice(begin, deleteCount, addItem) 向陣列中添加或刪除元素。</summary>
+  <summary><b>Array splice()：</b>使用 splice(begin, deleteCount, addItem) 向陣列中添加或刪除元素。（修改原始陣列）</summary>
 
-begin : 起始 index 若為-1 則代表從倒數第一個開始算
-deleteCount : 要刪除的個數
-addItem: 要添加的元素
+- begin : 起始 index 若為-1 則代表從倒數第一個開始算
+- deleteCount : 要刪除的個數
+- addItem: 要添加的元素
 
 ```js
 const months = ["Jan", "March", "April", "June"];
@@ -92,6 +94,19 @@ months.splice(4, 1, "May");
 // Replaces 1 element at index 4
 console.log(months);
 // Expected output: Array ["Jan", "Feb", "March", "April", "May"]
+```
+
+</details>
+
+<details>
+  <summary><b>Array with()：</b></summary>
+
+```js
+array.with(index, value);
+```
+
+```js
+
 ```
 
 </details>
@@ -135,7 +150,7 @@ console.log(inventory.find(isCherries));
 </details>
 
 <details>
-  <summary><b>Array includes()：</b></summary>
+  <summary><b>Array includes()：</b>判斷陣列是否包含特定的元素，並以此來回傳 true 或 false。</summary>
 
 ```js
 const array1 = [1, 2, 3];
@@ -158,6 +173,11 @@ console.log(pets.includes("at"));
 
 <details>
   <summary><b>Array forEach()：</b>使用 forEach 對陣列中的每個元素進行迭代處理。</summary>
+
+```js
+forEach(callbackFn);
+forEach(callbackFn, thisArg);
+```
 
 ```js
 const array1 = ["a", "b", "c"];
@@ -225,6 +245,20 @@ console.log(array.filter(isPrime)); // [2, 3, 5, 7, 11, 13]
 <details>
   <summary><b>Array reduce()：</b>使用 reduce 對陣列中的所有元素進行累積計算。</summary>
 
+`arr.reduce(callback[accumulator, currentValue, currentIndex, array], initialValue)`
+
+- **callback：** 用於處理陣列中每個元素的函式，可傳入四個參數：
+
+  **1. accumulator：** 用來累積回呼函式回傳值的累加器（accumulator）或 initialValue（若有提供的話，詳如下敘）。累加器是上一次呼叫後，所回傳的累加數值。
+
+  **2. currentValue：** 原陣列目前所迭代處理中的元素。
+
+  **3. currentIndex (選擇性)：** 原陣列目前所迭代處理中的元素之索引。若有傳入 initialValue，則由索引 0 之元素開始，若無則自索引 1 之元素開始。
+
+  **4. array (選擇性)：** 呼叫 reduce() 方法的陣列。
+
+  - **initialValue (選擇性)：** 於第一次呼叫 callback 時要傳入的累加器初始值。若沒有提供初始值，則原陣列的第一個元素將會被當作初始的累加器。假如於一個空陣列呼叫 reduce() 方法且沒有提供累加器初始值，將會發生錯誤。
+
 ```js
 const array1 = [1, 2, 3, 4];
 
@@ -237,6 +271,23 @@ const sumWithInitial = array1.reduce(
 
 console.log(sumWithInitial);
 // Expected output: 10
+```
+
+</details>
+
+<details>
+  <summary><b>Array entries()：</b> 使用 entries 會回傳一個包含陣列中每一個索引之鍵值對（key/value pairs）的新陣列迭代器（Array Iterator）物件。</summary>
+
+```js
+var a = ["a", "b", "c"];
+var iterator = a.entries();
+
+for (let e of iterator) {
+  console.log(e);
+}
+// [0, 'a']
+// [1, 'b']
+// [2, 'c']
 ```
 
 </details>
