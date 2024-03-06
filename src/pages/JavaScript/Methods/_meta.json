@@ -1,0 +1,14 @@
+{
+  "array-methods": {
+    "title": "[JS] Array Methods"
+  },
+  "object-methods": {
+    "title": "[JS] Object Methods"
+  },
+  "string-methods": {
+    "title": "[JS] String Methods"
+  },
+  "method-multi": {
+    "title": "[JS] Methods 複合應用"
+  }
+}

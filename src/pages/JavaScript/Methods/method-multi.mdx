@@ -1,0 +1,162 @@
+# Methods 複合應用
+
+## 情境題
+
+<details>
+  <summary><b>銷售數據分析</b></summary>
+假設你是一位電子商務網站的經理，需要對銷售數據進行分析。給定一個包含多個訂單的陣列，每個訂單包含商品名稱、單價和數量。你需要完成以下任務：
+
+```js
+const orders = [
+  { productName: "手機", unitPrice: 8000, quantity: 2 },
+  { productName: "筆記型電腦", unitPrice: 30000, quantity: 1 },
+  { productName: "平板電腦", unitPrice: 15000, quantity: 3 },
+  { productName: "耳機", unitPrice: 2000, quantity: 5 },
+  { productName: "電視", unitPrice: 40000, quantity: 1 },
+];
+```
+
+<details>
+<summary>
+  <b>1. 計算每筆訂單的總金額（單價 * 數量）。</b>
+</summary>
+
+```js
+const orderTotal = orders.map((order) => order.unitPrice * order.quantity);
+console.log("每筆訂單的總金額：", orderTotal);
+// 每筆訂單的總金額： [ 16000, 30000, 45000, 10000, 40000 ]
+```
+
+</details>
+
+<details>
+  <summary><b>2. 找出所有訂單中總金額超過 20000 元的訂單。</b></summary>
+
+```js
+const expensiveOrders = orders.filter((order) => {
+  const total = order.unitPrice * order.quantity;
+  return total > 20000;
+});
+
+console.log("總金額超過 20000 元的訂單:", expensiveOrders);
+
+// 總金額超過 20000 元的訂單: [
+//     { productName: '筆記型電腦', unitPrice: 30000, quantity: 1 },
+//     { productName: '平板電腦', unitPrice: 15000, quantity: 3 },
+//     { productName: '電視', unitPrice: 40000, quantity: 1 }
+//   ]
+```
+
+</details>
+
+<details>
+  <summary><b>3. 將符合條件的訂單按照總金額從高到低排序。</b></summary>
+
+```js
+expensiveOrders.sort((a, b) => {
+  const totalA = a.unitPrice * a.quantity;
+  const totalB = b.unitPrice * b.quantity;
+  return totalB - totalA;
+});
+console.log("總金額超過 20000 元的訂單：", expensiveOrders);
+// 總金額超過 20000 元的訂單： [
+//     { productName: '平板電腦', unitPrice: 15000, quantity: 3 },
+//     { productName: '電視', unitPrice: 40000, quantity: 1 },
+//     { productName: '筆記型電腦', unitPrice: 30000, quantity: 1 }
+//   ]
+```
+
+</details>
+
+</details>
+
+<details>
+  <summary><b>學生成績管理</b></summary>
+你有一個包含學生姓名和成績的陣列。請計算所有學生的平均成績並列出及格（成績大於等於60）和不及格（成績小於60）的學生名單。
+
+```js
+const students = [
+  { name: "小明", score: 85 },
+  { name: "小華", score: 70 },
+  { name: "小美", score: 50 },
+  { name: "小強", score: 90 },
+];
+```
+
+</details>
+
+<details>
+  <summary><b>商品庫存管理</b></summary>
+你有一個包含商品名稱和庫存數量的陣列。請找出庫存數量最少的商品，並按庫存數量從少到多排序列出所有商品。
+
+```js
+const products = [
+  { name: "手機", stock: 20 },
+  { name: "電視", stock: 10 },
+  { name: "筆記型電腦", stock: 5 },
+  { name: "平板電腦", stock: 15 },
+];
+```
+
+</details>
+<details>
+  <summary><b>文章分類統計</b></summary>
+你有一個包含多個文章的陣列，每篇文章包含標題和分類。請統計每個分類下的文章數量並按文章數量從多到少排序列出。
+
+```js
+const articles = [
+  { title: "JavaScript 新特性介紹", category: "前端開發" },
+  { title: "深度學習入門指南", category: "人工智慧" },
+  { title: "Node.js 實戰應用", category: "後端開發" },
+  { title: "React 實踐指南", category: "前端開發" },
+  { title: "Python 資料分析實務", category: "資料科學" },
+];
+```
+
+</details>
+<details>
+  <summary><b>電影評分排序</b></summary>
+你有一個包含多部電影的陣列，每部電影包含標題和評分。請找出評分最高和最低的電影，並按評分從高到低排序列出所有電影。
+
+```js
+const movies = [
+  { title: "阿凡達", rating: 8.7 },
+  { title: "星際效應", rating: 9.0 },
+  { title: "盜夢空間", rating: 8.8 },
+  { title: "極地守護者", rating: 7.5 },
+  { title: "泰坦尼克號", rating: 8.8 },
+];
+```
+
+</details>
+<details>
+  <summary><b>購物車結算</b></summary>
+你有一個包含多個商品和數量的購物車陣列，每個商品包含名稱和價格。請計算購物車中所有商品的總價格並找出價格最高的商品。
+
+```js
+const cart = [
+  { name: "手機", price: 8000, quantity: 1 },
+  { name: "筆記型電腦", price: 30000, quantity: 1 },
+  { name: "平板電腦", price: 15000, quantity: 2 },
+  { name: "耳機", price: 2000, quantity: 3 },
+];
+```
+
+</details>
+
+## 複合應用
+
+<details>
+  <summary><b>取字首縮寫</b></summary>
+
+```js
+const user = "Steven Thomas Williams";
+const username = user
+  .toLowerCase() // steven thomas williams
+  .split(" ") // [ 'steven', 'thomas', 'williams' ]
+  .map((name) => name[0]) // [ 's', 't', 'w' ]
+  .join(""); // stw
+console.log(username);
+```
+
+</details>
