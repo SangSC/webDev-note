@@ -1,10 +1,8 @@
-# Array & Object 取用資料的 methods
+# Array Methods
 
 - 使用 methods 需要注意是否會修改原始資料。
 
 ## Array Methods
-
-### Basic
 
 <details>
   <summary>
@@ -18,6 +16,75 @@ console.log(size); // 4
 ```
 
 </details>
+
+### 會更動原始陣列
+
+<details>
+  <summary><b>Array splice()：</b>使用 splice(begin, deleteCount, addItem) 向陣列中添加或刪除元素。（修改原始陣列）</summary>
+
+- begin : 起始 index 若為-1 則代表從倒數第一個開始算
+- deleteCount : 要刪除的個數
+- addItem: 要添加的元素
+
+```js
+const months = ["Jan", "March", "April", "June"];
+months.splice(1, 0, "Feb");
+// Inserts at index 1
+console.log(months);
+// Expected output: Array ["Jan", "Feb", "March", "April", "June"]
+
+months.splice(4, 1, "May");
+// Replaces 1 element at index 4
+console.log(months);
+// Expected output: Array ["Jan", "Feb", "March", "April", "May"]
+```
+
+</details>
+
+<details>
+  <summary><b>Array sort()：</b>對陣列的元素進行排序並回傳陣列。</summary>
+
+```js
+array.sort(compareFunction);
+```
+
+```js
+const months = ["March", "Jan", "Feb", "Dec"];
+months.sort();
+console.log(months);
+// Expected output: Array ["Dec", "Feb", "Jan", "March"]
+
+const array1 = [1, 30, 4, 21, 100000];
+array1.sort();
+console.log(array1);
+// Expected output: Array [1, 100000, 21, 30, 4]
+```
+
+```js filename="升冪"
+var numbers = [4, 2, 5, 1, 3];
+numbers.sort(function (a, b) {
+  return a - b;
+});
+console.log(numbers);
+
+// [1, 2, 3, 4, 5]
+```
+
+```js filename="升冪"
+var numbers = [4, 2, 5, 1, 3];
+numbers.sort(function (a, b) {
+  return b - a;
+});
+console.log(numbers);
+
+// [ 5, 4, 3, 2, 1 ]
+```
+
+</details>
+
+### 取得陣列而不會更動原始陣列
+
+（回傳陣列元素資訊、索引值、某個值、或產生新的陣列）
 
 <details>
   <summary><b>Array toString()：</b>將陣列轉換為字串。</summary>
@@ -77,36 +144,16 @@ console.log(animals.slice());
 </details>
 
 <details>
-  <summary><b>Array splice()：</b>使用 splice(begin, deleteCount, addItem) 向陣列中添加或刪除元素。（修改原始陣列）</summary>
-
-- begin : 起始 index 若為-1 則代表從倒數第一個開始算
-- deleteCount : 要刪除的個數
-- addItem: 要添加的元素
-
-```js
-const months = ["Jan", "March", "April", "June"];
-months.splice(1, 0, "Feb");
-// Inserts at index 1
-console.log(months);
-// Expected output: Array ["Jan", "Feb", "March", "April", "June"]
-
-months.splice(4, 1, "May");
-// Replaces 1 element at index 4
-console.log(months);
-// Expected output: Array ["Jan", "Feb", "March", "April", "May"]
-```
-
-</details>
-
-<details>
-  <summary><b>Array with()：</b></summary>
+  <summary><b>Array with()：</b>使用括號方式改變 index 對應的 value，並返回一個新陣列</summary>
 
 ```js
 array.with(index, value);
 ```
 
 ```js
-
+const arr = [1, 2, 3, 4, 5];
+console.log(arr.with(2, 6)); // [1, 2, 6, 4, 5]
+console.log(arr); // [1, 2, 3, 4, 5]
 ```
 
 </details>
@@ -123,28 +170,6 @@ const numbers = num1.concat(num2, num3);
 
 console.log(numbers);
 // results in [1, 2, 3, 4, 5, 6, 7, 8, 9]
-```
-
-</details>
-
-### Search
-
-<details>
-  <summary><b>Array find()：</b>使用 find 根據指定的條件查找陣列中的第一個符合條件的元素。</summary>
-
-```js
-const inventory = [
-  { name: "apples", quantity: 2 },
-  { name: "bananas", quantity: 0 },
-  { name: "cherries", quantity: 5 },
-];
-
-function isCherries(fruit) {
-  return fruit.name === "cherries";
-}
-
-console.log(inventory.find(isCherries));
-// { name: 'cherries', quantity: 5 }
 ```
 
 </details>
@@ -169,7 +194,9 @@ console.log(pets.includes("at"));
 
 </details>
 
-### Iteration
+### 對陣列內每個元素進行同樣處理
+
+（迭代 Iteration）
 
 <details>
   <summary><b>Array forEach()：</b>使用 forEach 對陣列中的每個元素進行迭代處理。</summary>
@@ -292,19 +319,28 @@ for (let e of iterator) {
 
 </details>
 
-## Object methods
+<details>
+  <summary><b>Array find()：</b>使用 find 根據指定的條件查找陣列中的第一個符合條件的元素。</summary>
 
-1. 點號訪問：使用點號（`.`）來訪問物件的屬性，例如 `myObject.propertyName`。
-2. 方括號訪問：使用方括號（`[]`）和屬性名來訪問物件的屬性，例如 `myObject['propertyName']`。
-3. for...in 迴圈：使用 for...in 迴圈遍歷物件的屬性，並訪問每個屬性的值。
-4. Object.keys ：使用 Object.keys 獲取物件的所有屬性名，並返回一個陣列。
-5. Object.values ：使用 Object.values 獲取物件的所有屬性值，並返回一個陣列。
-6. Object.entries ：使用 Object.entries 獲取物件的所有屬性及其對應的值，並返回一個二維陣列。
-7. Object.getOwnPropertyNames ：使用 Object.getOwnPropertyNames 獲取物件的所有屬性名，並返回一個陣列，包括不可枚舉的屬性名。
+```js
+const inventory = [
+  { name: "apples", quantity: 2 },
+  { name: "bananas", quantity: 0 },
+  { name: "cherries", quantity: 5 },
+];
+
+function isCherries(fruit) {
+  return fruit.name === "cherries";
+}
+
+console.log(inventory.find(isCherries));
+// { name: 'cherries', quantity: 5 }
+```
+
+</details>
 
 ## References
 
 - [JavaScript Array Methods](https://www.w3schools.com/js/js_array_methods.asp)
 - [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
-- [JavaScript Object Methods](https://www.w3schools.com/js/js_object_methods.asp)
-- [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+- [Cheatsheet for Array Methods - JavaScript 陣列方法大全](https://w3c.hexschool.com/blog/6594e4ff)

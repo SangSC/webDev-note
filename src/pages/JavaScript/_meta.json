@@ -1,6 +1,9 @@
 {
-  "array&object": {
-    "title": "[JS] Array & Object 取用資料的 methods"
+  "array-methods": {
+    "title": "[JS] Array Methods"
+  },
+  "object-methods": {
+    "title": "[JS] Object Methods"
   },
   "var&let&const": {
     "title": "[JS] var, let, 以及 const 的區別"
