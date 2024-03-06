@@ -2,8 +2,6 @@
 
 - 使用 methods 需要注意是否會修改原始資料。
 
-## Array Methods
-
 <details>
   <summary>
     <b>Array length：</b>獲取陣列長度。
@@ -17,7 +15,7 @@ console.log(size); // 4
 
 </details>
 
-### 會更動原始陣列
+## 會更動原始陣列
 
 <details>
   <summary><b>Array splice()：</b>使用 splice(begin, deleteCount, addItem) 向陣列中添加或刪除元素。（修改原始陣列）</summary>
@@ -82,7 +80,7 @@ console.log(numbers);
 
 </details>
 
-### 取得陣列而不會更動原始陣列
+## 不會更動原始陣列
 
 （回傳陣列元素資訊、索引值、某個值、或產生新的陣列）
 
@@ -194,7 +192,7 @@ console.log(pets.includes("at"));
 
 </details>
 
-### 對陣列內每個元素進行同樣處理
+## 對陣列內每個元素進行同樣處理
 
 （迭代 Iteration）
 
@@ -220,6 +218,11 @@ array1.forEach((element) => console.log(element));
 
 <details>
   <summary><b>Array map()：</b>使用 map 對陣列中的每個元素進行處理並返回一個新陣列。</summary>
+
+```js
+map(callbackFn);
+map(callbackFn, thisArg);
+```
 
 ```js
 const array1 = [1, 4, 9, 16];
@@ -339,8 +342,12 @@ console.log(inventory.find(isCherries));
 
 </details>
 
+## 實際應用例
+
+###
+
 ## References
 
 - [JavaScript Array Methods](https://www.w3schools.com/js/js_array_methods.asp)
-- [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+- [MDN Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
 - [Cheatsheet for Array Methods - JavaScript 陣列方法大全](https://w3c.hexschool.com/blog/6594e4ff)

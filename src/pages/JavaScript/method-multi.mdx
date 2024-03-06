@@ -1,0 +1,11 @@
+# Methods 複合應用
+
+```js
+const user = "Steven Thomas Williams";
+const username = user
+  .toLowerCase() // steven thomas williams
+  .split(" ") // [ 'steven', 'thomas', 'williams' ]
+  .map((name) => name[0]) // [ 's', 't', 'w' ]
+  .join(""); // stw
+console.log(username);
+```

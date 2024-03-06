@@ -1,0 +1,39 @@
+# String Methods
+
+## 不會更動原始字串
+
+（回傳新字串、索引值、某個值、或產生新的陣列）
+
+<details>
+  <summary><b>String split()：</b>將字串拆分為陣列，並返回一個新陣列。</summary>
+
+```js
+split(separator);
+split(separator, limit);
+```
+
+```js
+const str = "The quick brown fox jumps over the lazy dog.";
+
+const subWords = str.split(" ");
+console.log(subWords);
+// Expected output: Array ["The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog."]
+
+const words = str.split(" ");
+console.log(words[3]);
+// Expected output: "fox"
+
+const chars = str.split("");
+console.log(chars[8]);
+// Expected output: "k"
+
+const strCopy = str.split();
+console.log(strCopy);
+// Expected output: Array ["The quick brown fox jumps over the lazy dog."]
+```
+
+</details>
+
+## References
+
+- [MDN String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
