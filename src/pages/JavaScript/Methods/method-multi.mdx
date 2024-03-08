@@ -83,6 +83,26 @@ const students = [
 ];
 ```
 
+```js
+// 計算平均成績
+const totalScore = students.reduce((acc, student) => acc + student.score, 0);
+const averageScore = totalScore / students.length;
+console.log("平均成績:", averageScore); // 平均成績: 73.75
+
+// 列出及格和不及格的學生
+const passingStudents = students.filter((student) => student.score >= 60);
+
+const failingStudents = students.filter((student) => student.score < 60);
+console.log(
+  "及格學生:",
+  passingStudents.map((student) => student.name)
+); // 及格學生: [ '小明', '小華', '小強' ]
+console.log(
+  "不及格學生:",
+  failingStudents.map((student) => student.name)
+); // 不及格學生: [ '小美' ]
+```
+
 </details>
 
 <details>

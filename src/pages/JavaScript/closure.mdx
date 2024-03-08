@@ -2,14 +2,6 @@
 
 JavaScript 的閉包（closure）是指在函數內部創建的函數，它可以訪問其外部函數作用域中的變量。閉包的特性之一是它可以捕獲並維持其創建時的作用域鏈。 React 中的 `useState` 就是透過閉包來實作。
 
-<details>
-  <summary><b></b>
-  </summary>
-
-when you have a function defined inside of another function, that inner function has access to the variables and scope of the outer function even if the outer function finishes executing and those variables are no longer accessible outside of that function.
-
-</details>
-
 ## 什麼是閉包?
 
 在 MDN 文件中，閉包被定義為函式及其宣告時所在的作用域環境的組合。簡單來說，閉包就是內部函式能夠存取外部函式的變數並記住它。閉包常被用來實現<u>**狀態保存**</u>。
@@ -144,6 +136,10 @@ for (let i = 0; i < 100000000; i++) {
 }
 ```
 
+## Factory Function
+
+A factory function is a function that returns a new object.
+
 ## 垃圾回收機制 (Garbage Collection)
 
 關於 JavaScript 閉包的垃圾回收（garbage collection）特性，可以從以下幾個方面來說明：
@@ -165,3 +161,7 @@ for (let i = 0; i < 100000000; i++) {
 - [[JS] 深入淺出 JavaScript 閉包（closure）](https://pjchender.dev/javascript/js-closure/)
 - [【前端基礎】JavaScript 中的閉包是什麼？React 閉包應用情境](https://vocus.cc/article/65bb95f8fd89780001ba5756)
 - [Closure 閉包](https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part4/closure.html)
+- [JavaScript Closures Tutorial (Explained in depth)](https://www.youtube.com/watch?v=aHrvi2zTlaU)
+
+- [What is a Closure?](https://kyleshevlin.com/what-is-a-closure/)
+- [What is a Factory Function?](https://kyleshevlin.com/what-is-a-factory-function/)
