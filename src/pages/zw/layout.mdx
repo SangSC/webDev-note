@@ -1,0 +1,38 @@
+# Layout
+
+<details>
+  <summary><b>Search bar</b></summary>
+
+```html
+<div id="search">
+  <form
+    target="_parent"
+    action="https://esearch.rakuten.co.jp/rms/sd/esearch/vc"
+    accept-charset="euc-jp"
+    method="get"
+    class="cf"
+  >
+    <p>
+      <input type="hidden" name="sv" value="6" /><input
+        type="hidden"
+        name="sid"
+        value="218007"
+      /><input type="hidden" name="su" value="ayano-koji" /><input
+        type="hidden"
+        name="sn"
+        value="あやの小路"
+      /><input type="hidden" name="f" value="A" /><input
+        type="text"
+        value=""
+        onfocus="if( this.value == '' ) { this.value = ''; } "
+        onblur="if( this.value == '' ) { this.value = ''; } "
+        id="txtarea"
+        name="sitem"
+        placeholder="入力例：長財布　マチ有"
+      /><input type="submit" value="検索" />
+    </p>
+  </form>
+</div>
+```
+
+</details>
