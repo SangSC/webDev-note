@@ -1,0 +1,11 @@
+{
+  "HTTP": {
+    "title": "[WEB] HTTP"
+  },
+  "SEO": {
+    "title": "[WEB] SEO"
+  },
+  "CORS": {
+    "title": "[WEB] CORS"
+  }
+}
